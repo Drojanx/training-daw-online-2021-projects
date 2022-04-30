@@ -19,7 +19,7 @@
         </b-card-text>
         <div class="buttons">
             <b-button class="button" href="#" variant="primary" size="lg">View</b-button>
-            <b-button  @click="addToCart" class="button" href="#" variant="primary" size="lg">Add</b-button>
+            <b-button  @click="pickProduct" class="button" href="#" variant="primary" size="lg">Add</b-button>
         </div>
     </b-card>
   </div>
@@ -32,7 +32,7 @@
 export default {
     props: ['product'],
     methods: {
-        addToCart() {
+        pickProduct() {
             this.$emit('pick-product', this.product.id)
         }
     }

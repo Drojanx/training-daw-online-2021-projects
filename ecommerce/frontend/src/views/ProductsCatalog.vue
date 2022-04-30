@@ -20,11 +20,23 @@
             footer-bg-variant="success"
             footer-border-variant="dark"
         >
-            <div v-for="cartProduct in cartProducts" :key="cartProduct.productId">
-                <CartItem  
-                    :cartProduct="cartProduct"
-                    :products="products"
-                />
+            <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody v-for="cartProduct in cartProducts" :key="cartProduct.productId">
+                        <CartItem  
+                            :cartProduct="cartProduct"
+                        />
+                </tbody>
+           </table>
+                
             </div>
             </b-card>
 
@@ -88,7 +100,7 @@ export default {
 <style>
 #catalog{
     justify-content: space-between;
-    width: 80%;
+    width: 90%;
     margin: auto;
 }
 #productList {

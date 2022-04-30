@@ -1,38 +1,33 @@
 <template>
-    <div>
-       <table class="table">
-           <thead>
-               <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Product</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-               </tr>
-           </thead>
-           <tbody>
-               <tr>
-                   <th scope="row"> {{ cartProduct.productId }}</th>
-                   <td> {{ productName.name }} </td>
-                   <td> {{ cartProduct.quantity }} </td>
-               </tr>
-           </tbody>
-       </table>
-    </div>
+        <tr>
+            <th scope="row">{{selectedProduct.id}}</th>
+            <td>{{selectedProduct.name}}</td>
+            <td>{{myCartProd.quantity}}</td>
+            <td>{{ (selectedProduct.price*myCartProd.quantity)*100/100 }}$</td>
+        </tr>
 </template>
 
 <script>
-
+import { mapState } from 'vuex'
+ import store from '@/store'
 
 export default {
-    props: ['cartProduct', 'products'],
+    store: store,
+    props: ['cartProduct'],
     data() {
         return {
-            myCart: this.cartProduct,
-            myAllProducts: this.products,
-            productName: this.myAllProducts.find(f => f.id === this.myCart.productId).name,
-            productPrice: this.myAllProducts.find(f => f.id === this.myCart.productId).price
-        }
+            myCartProd: this.cartProduct,
+/*             myAllProducts: this.products,
+            productName: this.myAllProducts.find(f => f.id === this.myCartProd.productId).name,
+            productPrice: this.myAllProducts.find(f => f.id === this.myCartProd.productId).price
+ */        }
     },
+    computed: {
+        ...mapState(['products']),
+        selectedProduct() {
+            return this.products.filter(product => product.id === this.myCartProd.productId)[0]
+        }
+    }
 }
 </script>
 
