@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/cart">Carrito</router-link>
+      <router-link to="/products">Catalog</router-link> |
+      <router-link to="/checkout">Checkout</router-link>
     </div>
     <h1 v-if="isMock">Working with MOCK data</h1>
     <router-view/>
@@ -10,7 +11,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
+  created(){
+    this.fetchProducts()
+    this.fetchCartProducts()
+  },
+  methods: {
+    ...mapActions(['fetchProducts', 'fetchCartProducts'])
+  },
   computed: {
     isMock() {
       return process.env.VUE_APP_API_IS_MOCK === "true"
