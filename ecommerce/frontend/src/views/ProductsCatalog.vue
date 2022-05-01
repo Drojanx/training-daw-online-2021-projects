@@ -5,7 +5,7 @@
             <b-col cols="4" v-for="product in products" :key="product.id">
                 <Product
                     :product="product"
-                    @pick-product="pickProduct"
+                    @move-product="moveProduct"
                 />
             </b-col>
         </b-row>
@@ -15,28 +15,33 @@
             header-text-variant="white"
             header-tag="header"
             header-bg-variant="dark"
-            footer="Card Footer"
-            footer-tag="footer"
-            footer-bg-variant="success"
-            footer-border-variant="dark"
         >
             <div>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                </tr>
-                </thead>
-                <tbody v-for="cartProduct in cartProducts" :key="cartProduct.productId">
-                        <CartItem  
-                            :cartProduct="cartProduct"
-                        />
-                </tbody>
-           </table>
-                
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">ID.Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    </thead>
+                    <tbody v-for="cartProduct in cartProducts" :key="cartProduct.id">
+                            <CartItem  
+                                :cartProduct="cartProduct"
+                                :key="cart_reload"
+                                @move-product="moveProduct"
+                                @drop-product="dropProduct"
+                            />
+                    </tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td><h3 class="my-0 py-1">Total: </h3></td>
+                        <td><h3 class="my-0 py-1">{{sumCart}}$</h3></td>
+                    </tr>
+                </table>
+                <b-button squared variant="success" class="checkoutBtn">Checkout</b-button>
             </div>
             </b-card>
 
@@ -59,39 +64,55 @@ export default {
         Product,
         CartItem
     },
+    data() {
+        return {
+            cart_reload: 0
+        }
+    },
      computed: {
         ...mapState(['products', 'cartProducts']), /*Va al store y se trae el state "books"*/
-        ...mapGetters(['inCart'])
+        ...mapGetters(['inCart', 'sumCart']),
     },
     created() {
         this.fetchCartProducts();
     },
-
-/*     data() {
-        return {
-            cartProducts: [
-                {id: 1, name: "item 1", quantity: 2},
-                {id: 2, name: "item 2", quantity: 1},
-                {id: 3, name: "item 3", quantity: 2}
-            ]
-        }
-    }, */
     methods: {
-        ...mapActions(['addToCart', 'modifyCartProduct', 'fetchCartProducts']),
-        pickProduct(id){
+        ...mapActions(['addToCart', 'modifyCartProduct', 'fetchCartProducts', 'dropCartProduct']),
+        moveProduct(id, action){
+            this.reload();
             let picked = this.inCart(id)
-            if (picked === null){
+            if (picked === null && action){
                 this.addToCart({
                     productId: id,
                     quantity: 1
                 })    
-            } else {
-                this.modifyCartProduct({ 
-                    productId: id,
-                    quantity: picked.quantity + 1,
-                    id: null
-                 })
             }
+            if (picked !== null) {
+                if (action) {
+                    this.modifyCartProduct({ 
+                        productId: id,
+                        quantity: picked.quantity + 1,
+                        id: null
+                    })
+                } else {
+                    if (picked.quantity - 1 === 0) {
+                        this.dropProduct(id)
+                    } else  {
+                        this.modifyCartProduct({ 
+                            productId: id,
+                            quantity: picked.quantity - 1,
+                            id: null
+                        })
+                    }
+                }
+            }            
+        },
+        dropProduct(id){
+            this.reload();
+            this.dropCartProduct(id);
+        },
+        reload() {
+            this.cart_reload++;
         }
     }   
 }
@@ -108,5 +129,8 @@ export default {
 }
 #cartPart {
     width: 25%;
+}
+.checkoutBtn{
+    width: 100%;
 }
 </style>
