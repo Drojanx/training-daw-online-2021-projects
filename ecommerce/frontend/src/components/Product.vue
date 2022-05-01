@@ -18,8 +18,8 @@
             <h3>{{ product.price*100/100 }}$</h3>
         </b-card-text>
         <div class="buttons">
-            <b-button class="button" href="#" variant="primary" size="lg">View</b-button>
-            <b-button  @click="pickProduct" class="button" href="#" variant="primary" size="lg">Add</b-button>
+            <b-button @click="showProductDetails" class="button" href="#" variant="primary" size="lg">View</b-button>
+            <b-button  @click="moveProduct" class="button" href="#" variant="primary" size="lg">Add</b-button>
         </div>
     </b-card>
   </div>
@@ -32,10 +32,14 @@
 export default {
     props: ['product'],
     methods: {
-        pickProduct() {
-            this.$emit('pick-product', this.product.id)
+        moveProduct() {
+            this.$emit('move-product', this.product.id, true)
+        },
+        showProductDetails() {
+            this.$router.push(`products/${this.product.id}`)
         }
     }
+
 }
 </script>
 
