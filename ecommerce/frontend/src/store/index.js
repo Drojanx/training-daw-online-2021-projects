@@ -50,6 +50,9 @@ export default new Vuex.Store({
       state.cartProducts = state.cartProducts.filter(f => {
         return f.productId !== payload;
       })
+    },
+    clearCart() {
+      console.log("Hola")
     }
   },
   actions: {
@@ -98,6 +101,16 @@ export default new Vuex.Store({
       })
         .then(result => result.json())
         .then(commit('dropCartProduct', productId))
+    },
+    addOrder( _, listItems) {
+      fetch(url('/orders'), {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(listItems)
+      })
+        .then(result => result.json())
     }
   },
   modules: {
