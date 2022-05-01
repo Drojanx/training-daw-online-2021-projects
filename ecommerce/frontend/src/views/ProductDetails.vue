@@ -123,7 +123,7 @@ export default {
     padding: 5em
   }
   .infoArea{
-    width: 70%;
+    width: 35%;
   }
   .checkoutBtn{
     width: 100%;

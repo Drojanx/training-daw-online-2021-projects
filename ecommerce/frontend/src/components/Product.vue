@@ -2,7 +2,7 @@
   <div>
     <b-card
         title=""
-        img-src="https://picsum.photos/600/300"
+        :img-src="product.mainImage"
         img-alt="Image"
         img-top
         tag="article"

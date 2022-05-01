@@ -12,52 +12,33 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-    <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid"
-            width="4000"
-            height="563"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
       <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid"
-            width="4000"
-            height="563"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
+          <template #img>
+            <img
+              class="d-block img-fluid"
+              width="4000"
+              height="563"
+              v-bind:src="detailProduct.mainImage"
+              alt="image slot"
+            >
+          </template>
       </b-carousel-slide>
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid"
-            width="4000"
-            height="563"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid"
-            width="4000"
-            height="563"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
+
+      <div v-for="(image, index) in detailProduct.images" :key="`image-${index}`">
+
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid"
+              width="4000"
+              height="563"
+              v-bind:src="image"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+
+      </div>
         
     </b-carousel>
         <h2 class="name">{{detailProduct.name}}</h2>
@@ -101,8 +82,6 @@
 <style>
     .description{
         text-align: justify;
-        width: 65%;
-        margin: auto;
     }
     .button {
         width: 10em;
