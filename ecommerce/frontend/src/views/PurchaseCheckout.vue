@@ -24,7 +24,7 @@
             <td><h3 class="my-0 py-1">{{sumCart}}$</h3></td>
         </tr>            
     </table>
-    <div><b-button squared variant="success" class="w-100">Checkout</b-button></div>
+    <div><b-button @click="createOrder(cartProducts)" squared variant="success" class="w-100">Checkout</b-button></div>
   </div>
 </template>
 
@@ -52,7 +52,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchCartProducts', 'modifyCartProduct', 'addToCart', 'dropCartProduct']),
+    ...mapActions(['fetchCartProducts', 'modifyCartProduct', 'addToCart', 'dropCartProduct', 'addOrder']),
     moveProduct(id, action){
       this.reload();
       let picked = this.inCart(id)
@@ -86,6 +86,19 @@ export default {
     dropProduct(id){
       this.reload();
       this.dropCartProduct(id);
+    },
+    createOrder(cartProducts){
+      this.reload();
+      let items = [];
+      for (let i=0; i<cartProducts.length; i++) {
+        let item = {
+          productId: cartProducts[i].productId,
+          quantity: cartProducts[i].quantity
+        }
+        items.push(item);
+         this.dropCartProduct(cartProducts[i].productId);
+      }
+      this.addOrder({items});
     },
     reload() {
       this.cart_reload++;
