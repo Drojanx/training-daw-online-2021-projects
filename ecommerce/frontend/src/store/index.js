@@ -17,6 +17,8 @@ export default new Vuex.Store({
     },
     productPrice: (state) => (productId) => {
       let price = state.products.find(item => item.id === productId).price;
+      let disccount = state.products.find(item => item.id === productId).disccount;
+      price = price - disccount;
       return price || null
     },
     sumCart: (state, getters) => {
