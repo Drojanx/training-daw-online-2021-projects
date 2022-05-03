@@ -37,7 +37,7 @@
                 <td><h3 class="my-0 py-1">{{sumCart}}$</h3></td>
             </tr>            
         </table>
-        <b-button squared variant="success" class="checkoutBtn">Checkout</b-button>
+        <b-button squared @click="goToCheckout" variant="success" class="checkoutBtn">Checkout</b-button>
       </div>
       </b-card>
     </div>
@@ -108,6 +108,9 @@ export default {
     dropProduct(id){
       this.reload();
       this.dropCartProduct(id);
+    },
+    goToCheckout(){
+      this.$router.push(`/checkout`)
     },
     reload() {
         this.cart_reload++;

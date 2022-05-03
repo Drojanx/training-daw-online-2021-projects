@@ -15,7 +15,13 @@
             {{ product.short }}
         </b-card-text>
         <b-card-text id="price">
-            <h3>{{ product.price*100/100 }}$</h3>
+            <div v-if="product.disccount === 0">
+                <h3>{{ product.price*100/100 }}$</h3>
+            </div>
+            <div v-if="product.disccount !== 0">
+                <h3 style="color: red;">{{ (product.price*100/100)-product.disccount }}$</h3>
+            </div>
+
         </b-card-text>
         <div class="buttons">
             <b-button @click="showProductDetails" class="button" href="#" variant="primary" size="lg">View</b-button>
