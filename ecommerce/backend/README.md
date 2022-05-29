@@ -27,7 +27,7 @@ Para iniciar la API:
 ```
 dotnet run
 ```
-La URL a la que habrá mandar las peticiones CRUD es: https://localhost:3022
+La URL a la que habrá mandar las peticiones CRUD es: http://localhost:3022
 
 Contiene también un fichero **ClienteAA.postman_collection.json** con una coleccción Postman con la que probar las peticiones.
 
