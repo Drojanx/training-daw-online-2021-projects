@@ -86,6 +86,7 @@ export default new Vuex.Store({
     },
     modifyCartProduct( {commit}, productInfo) {
       let cartId = this.getters.inCart(productInfo.productId).id;
+      productInfo.id = cartId;
       fetch(url('/cart/'+cartId), {
         method: 'PUT',
         headers: {

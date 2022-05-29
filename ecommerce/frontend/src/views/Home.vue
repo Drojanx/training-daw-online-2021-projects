@@ -1,18 +1,14 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <div>
-      Listado de productos
-<!--       <div v-for="product in products" :key="product.id">
-      {{ product.name }}
-      </div> -->
+    <div class="text-center">
+      <h3>Actividad de Aprendizaje 2º Evaluacion</h3>
+      <h2>Alejandro Lanz Echarte</h2>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home'

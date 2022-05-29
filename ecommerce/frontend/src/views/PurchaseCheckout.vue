@@ -25,6 +25,7 @@
         </tr>            
     </table>
     <div><b-button @click="createOrder(cartProducts)" squared variant="success" class="w-100">Checkout</b-button></div>
+    <div id="success"><p id="message"></p></div>
   </div>
 </template>
 
@@ -98,7 +99,33 @@ export default {
         items.push(item);
          this.dropCartProduct(cartProducts[i].productId);
       }
-      this.addOrder({items});
+
+      var success = document.querySelector('#success');
+      var message = document.querySelector('#message');
+
+      if (!items.length){
+        
+        success.classList.add("alert");
+        success.classList.add("alert-danger");
+        success.classList.add("mt-3");
+        success.setAttribute("role", "alert");
+        let text = "You need to add items to create an order";
+        message.innerHTML = text;
+        message.classList.add("mb-0");
+        success.appendChild(message);
+      } else {
+        this.addOrder({items});
+
+        success.classList.add("alert");
+        success.classList.add("alert-success");
+        success.classList.add("mt-3");
+        success.setAttribute("role", "alert");
+        let text = "Order registered correctly!";
+        message.innerHTML = text;
+        message.classList.add("mb-0");
+        success.appendChild(message);
+      }
+      
     },
     reload() {
       this.cart_reload++;
