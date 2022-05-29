@@ -64,18 +64,5 @@ namespace backend.Controllers
             var resourceUrl = Request.Path.ToString() + "/" + productId;
             return Ok();
         }
-
-        [HttpDelete]
-        [Route("{productId}")]
-        public ActionResult Delete(int productId) {
-            var existingProduct = _context.Products.Find(productId);
-            if (existingProduct == null) {
-                return NotFound("Product not found");
-            } else {
-                _context.Products.Remove(existingProduct);
-                _context.SaveChangesAsync();
-                return NoContent();
-            }
-        }
     }
 }

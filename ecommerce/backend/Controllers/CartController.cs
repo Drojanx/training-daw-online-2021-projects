@@ -34,11 +34,11 @@ namespace backend.Controllers
         [HttpPost]
         public ActionResult Post(CartProduct cartProduct)
         {
-            Product productExists = _context.Products.Find(cartProduct.ProductID);
+            Product productExists = _context.Products.Find(cartProduct.ProductId);
             if (productExists==null) {
                 return NotFound("Product doesn't exist");
             }
-            var existingProduct = _context.Cart.SingleOrDefault(cp => cp.ProductID == cartProduct.ProductID);
+            var existingProduct = _context.Cart.SingleOrDefault(cp => cp.ProductId == cartProduct.ProductId);
             if (existingProduct!=null) {
                 return Conflict("Product already in cart. To modify data, use PUT");
             } else {
@@ -52,7 +52,7 @@ namespace backend.Controllers
         [HttpPut]
         [Route("{cartId}")]
         public ActionResult Put(CartProduct cartProduct, int cartId) {
-            Product productExists = _context.Products.Find(cartProduct.ProductID);
+            Product productExists = _context.Products.Find(cartProduct.ProductId);
             if (productExists==null) {
                 return NotFound("Product doesn't exist");
             }
@@ -60,15 +60,15 @@ namespace backend.Controllers
             if (existingCartProductLIne==null) {
                 return Conflict("There is no product line with this Id in the cart");
             }
-            var existingProduct = _context.Cart.SingleOrDefault(cp => cp.ProductID == cartProduct.ProductID);
+            var existingProduct = _context.Cart.SingleOrDefault(cp => cp.ProductId == cartProduct.ProductId);
             if (existingProduct!=null && existingProduct.Id != cartId) {
                 return Conflict("Product already in cart in a different line. Try MODIFYING that one and DELETING this one");
             }            
-            existingCartProductLIne.ProductID = cartProduct.ProductID;
+            existingCartProductLIne.ProductId = cartProduct.ProductId;
             existingCartProductLIne.Quantity = cartProduct.Quantity;
             _context.SaveChanges();
             var resourceUrl = Request.Path.ToString() + "/" + cartId;
-            return Ok();
+            return Ok(existingCartProductLIne);
         }
         
         [HttpDelete]

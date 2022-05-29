@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "7/yvsnDRTixX0vVer35KSjS1HzfM4rGxA/gc1emwSdw=",
-  "Source": "backend",
-  "BasePath": "_content/backend",
+  "Hash": "aerEVyLCCNS4Hj6f0D87gG8QQBzHZNHz9Weibb9wR/M=",
+  "Source": "DotNet.Docker",
+  "BasePath": "_content/DotNet.Docker",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

@@ -1,4 +1,4 @@
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace backend.Models
 {
     public class Product
@@ -19,8 +19,7 @@ namespace backend.Models
 
         public int  Disccount { get; set; }
         
-        public string Images { get; set; } = string.Empty;
-                
-
+        public string Images{ get; set; } = string.Empty;
+        
     }
 }

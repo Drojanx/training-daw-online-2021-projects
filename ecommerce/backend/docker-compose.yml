@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  ecommerce-db:
+    container_name: ecommerce-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=MyPassword-1234
+    ports:
+      - "3012:1433"
+    restart: always
+
+  ecommerce-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-dotnet
+    image: alanz/ecommerceapp:1.0
+    ports:
+      - "3022:3022"
+    depends_on:
+      - ecommerce-db
+
+  migrations:
+    build: 
+      context: .
+      dockerfile: Migrations.Dockerfile
