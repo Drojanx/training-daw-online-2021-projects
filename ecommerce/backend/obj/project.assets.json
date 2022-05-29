@@ -2027,7 +2027,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\Grado\\2º GRADO PROG\\AA_s\\DAW Cliente\\training-daw-online-2021-projects\\ecommerce\\backend\\backend.csproj",
-      "projectName": "backend",
+      "projectName": "DotNet.Docker",
       "projectPath": "D:\\Grado\\2º GRADO PROG\\AA_s\\DAW Cliente\\training-daw-online-2021-projects\\ecommerce\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\droja\\.nuget\\packages\\",
       "outputPath": "D:\\Grado\\2º GRADO PROG\\AA_s\\DAW Cliente\\training-daw-online-2021-projects\\ecommerce\\backend\\obj\\",

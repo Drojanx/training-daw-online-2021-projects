@@ -30,6 +30,9 @@ namespace backend.Controllers
         [Route("{orderId}")]
         public ActionResult<IEnumerable<Order>> Get(int orderId)
         {
+            IEnumerable<Order> orders = _context.Orders
+                .Include(order => order.Items)
+                .ToList();  
             Order order = _context.Orders.Find(orderId);
             return order == null ? NotFound("Order not found") : Ok(order);
         }
@@ -48,38 +51,5 @@ namespace backend.Controllers
             
         }
 
-        [HttpPut]
-        [Route("{orderId}")]
-        public ActionResult Put(Product product, int productId) {
-            Product existingProduct = _context.Products.Find(productId);
-            if (existingProduct==null) {
-                return Conflict("There is no product with this Id");
-            }
-            existingProduct.Name = product.Name;
-            existingProduct.Category = product.Category;
-            existingProduct.Short = product.Short;
-            existingProduct.Description = product.Description;
-            existingProduct.Price = product.Price;
-            existingProduct.MainImage = product.MainImage;
-            existingProduct.Disccount = product.Disccount;
-            existingProduct.Images = product.Images;
-            _context.SaveChanges();
-            var resourceUrl = Request.Path.ToString() + "/" + productId;
-            return Ok();
-        }
-
-        /*
-        [HttpDelete]
-        [Route("{productId}")]
-        public ActionResult Delete(int productId) {
-            var existingProduct = _context.Products.Find(productId);
-            if (existingProduct == null) {
-                return NotFound("Product not found");
-            } else {
-                _context.Products.Remove(existingProduct);
-                _context.SaveChangesAsync();
-                return NoContent();
-            }
-        } */
     }
 }
