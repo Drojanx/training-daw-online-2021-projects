@@ -73,12 +73,14 @@ export default {
         ...mapState(['products', 'cartProducts']), /*Va al store y se trae el state "books"*/
         ...mapGetters(['inCart', 'sumCart']),
     },
-    created() {
-        this.fetchCartProducts();
+    created(){
+        this.fetchProducts()
+        this.fetchCartProducts()
     },
     methods: {
-        ...mapActions(['addToCart', 'modifyCartProduct', 'fetchCartProducts', 'dropCartProduct']),
+        ...mapActions(['addToCart', 'modifyCartProduct', 'fetchCartProducts', 'dropCartProduct', 'fetchProducts']),
         moveProduct(id, action){
+            this.cart_reload++;
             this.reload();
             let picked = this.inCart(id)
             if (picked === null && action){

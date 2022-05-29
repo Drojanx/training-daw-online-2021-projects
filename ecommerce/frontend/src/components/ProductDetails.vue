@@ -24,7 +24,7 @@
           </template>
       </b-carousel-slide>
 
-      <div v-for="(image, index) in detailProduct.images" :key="`image-${index}`">
+      <div v-for="(image, index) in mapImagesUrl" :key="`image-${index}`">
 
         <b-carousel-slide>
           <template #img>
@@ -62,6 +62,17 @@
         sliding: null
       }
     },
+    computed: {
+      mapImagesUrl(){
+        var imageUrls;
+        if (typeof this.detailProduct.images === "string") {
+          imageUrls = this.detailProduct.images.split(',');
+        } else {
+          imageUrls = this.detailProduct.images;
+        }
+        return imageUrls;
+      }
+    },
     methods: {
       onSlideStart() {
         this.sliding = true
@@ -74,7 +85,7 @@
       },
       moveProduct() {
             this.$emit('move-product', this.detailProduct.id, true)
-        }
+      }
     }
   }
 </script>
