@@ -43,7 +43,12 @@
     </b-carousel>
         <h2 class="name">{{detailProduct.name}}</h2>
         <p class="description">{{detailProduct.description}}</p>
-        <h2 class="price w-50">{{detailProduct.price*100/100}}$</h2>
+        <div v-if="detailProduct.disccount === 0">
+            <h3>{{ detailProduct.price*100/100 }}$</h3>
+        </div>
+        <div v-if="detailProduct.disccount !== 0">
+            <h3 style="color: red;">{{ (detailProduct.price*100/100)-detailProduct.disccount }}$</h3>
+        </div>
         <div class="w-50 m-auto d-flex justify-content-evenly">
             <b-button @click="toCatalog" class="button" href="#" variant="primary" size="lg">Back</b-button>
             <b-button  @click="moveProduct" class="button" href="#" variant="primary" size="lg">Add</b-button>
